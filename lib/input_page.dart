@@ -1,16 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'reusable_tiles.dart';
 import 'card_content.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-//height for bottom button container
-const bottomContainerHeight = 70.0;
-//color for active card
-const activeCardColor = Color(0xFF252525);
-//color for inactive card
-const inactiveCardColor = Color(0xFF1b1b1b);
-//color for bottom button container
-const bottomContainerColor = Color(0x8840E0D0);
+import 'constants.dart';
 
 enum Gender {
   male,
@@ -24,6 +17,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   //to keep track of user's gender
   Gender userGender;
+  //user height
+  int userHeight = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +29,7 @@ class _InputPageState extends State<InputPage> {
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             child: Row(
@@ -47,8 +43,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     tileColor: userGender == Gender.male
-                        ? activeCardColor
-                        : inactiveCardColor,
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
                     cardChild: CardContent(
                       icon: FontAwesomeIcons.mars,
                       textContent: 'MALE',
@@ -64,8 +60,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     tileColor: userGender == Gender.female
-                        ? activeCardColor
-                        : inactiveCardColor,
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
                     cardChild: CardContent(
                       icon: FontAwesomeIcons.venus,
                       textContent: 'FEMALE',
@@ -77,7 +73,43 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: ReusableTiles(
-              tileColor: activeCardColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'HEIGHT',
+                    style: kLabelTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    textBaseline: TextBaseline.alphabetic,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    children: <Widget>[
+                      Text(
+                        userHeight.toString(),
+                        style: kNumericTextStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: kLabelTextStyle,
+                      ),
+                    ],
+                  ),
+                  Slider(
+                    value: userHeight.toDouble(),
+                    min: minHeight,
+                    max: maxHeight,
+                    activeColor: kActiveSliderColor,
+                    inactiveColor: kInActiveSliderColor,
+                    onChanged: (double newHeight) {
+                      setState(() {
+                        userHeight = newHeight.round();
+                      });
+                    },
+                  ),
+                ],
+              ),
+              tileColor: kActiveCardColor,
             ),
           ),
           Expanded(
@@ -85,12 +117,12 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                   child: ReusableTiles(
-                    tileColor: activeCardColor,
+                    tileColor: kActiveCardColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableTiles(
-                    tileColor: activeCardColor,
+                    tileColor: kActiveCardColor,
                   ),
                 ),
               ],
@@ -98,7 +130,7 @@ class _InputPageState extends State<InputPage> {
           ),
           Container(
             margin: EdgeInsets.only(top: 10.0),
-            color: bottomContainerColor,
+            color: kBottomContainerColor,
             height: 70.0,
             width: double.infinity,
           ),
