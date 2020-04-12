@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
+import 'reusable_tiles.dart';
+import 'card_content.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+//height for bottom button container
 const bottomContainerHeight = 70.0;
-const activeCardColor = Color(0xFF232833);
+//color for active card
+const activeCardColor = Color(0xFF252525);
+//color for inactive card
+const inactiveCardColor = Color(0xFF1b1b1b);
+//color for bottom button container
 const bottomContainerColor = Color(0x8840E0D0);
+
+enum Gender {
+  male,
+  female,
+}
 
 class InputPage extends StatefulWidget {
   _InputPageState createState() => _InputPageState();
 }
 
 class _InputPageState extends State<InputPage> {
+  //to keep track of user's gender
+  Gender userGender;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,13 +39,37 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
+                  //Male gender gesture detector
                   child: ReusableTiles(
-                    tileColor: activeCardColor,
+                    onTapFunction: () {
+                      setState(() {
+                        userGender = Gender.male;
+                      });
+                    },
+                    tileColor: userGender == Gender.male
+                        ? activeCardColor
+                        : inactiveCardColor,
+                    cardChild: CardContent(
+                      icon: FontAwesomeIcons.mars,
+                      textContent: 'MALE',
+                    ),
                   ),
                 ),
                 Expanded(
+                  //Female gender gesture detector
                   child: ReusableTiles(
-                    tileColor: activeCardColor,
+                    onTapFunction: () {
+                      setState(() {
+                        userGender = Gender.female;
+                      });
+                    },
+                    tileColor: userGender == Gender.female
+                        ? activeCardColor
+                        : inactiveCardColor,
+                    cardChild: CardContent(
+                      icon: FontAwesomeIcons.venus,
+                      textContent: 'FEMALE',
+                    ),
                   ),
                 ),
               ],
@@ -65,27 +104,6 @@ class _InputPageState extends State<InputPage> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ReusableTiles extends StatelessWidget {
-  //for tile color
-  final Color tileColor;
-  //for tile content child
-  final Widget cardChild;
-
-  ReusableTiles({@required this.tileColor, this.cardChild});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: cardChild,
-      decoration: BoxDecoration(
-        color: tileColor,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      margin: EdgeInsets.all(8.0),
     );
   }
 }
