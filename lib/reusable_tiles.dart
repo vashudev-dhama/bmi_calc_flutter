@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ReusableTiles extends StatelessWidget {
+class ReusableTiles extends StatefulWidget {
   //for tile color
   final Color tileColor;
   //for tile content child
@@ -11,13 +11,18 @@ class ReusableTiles extends StatelessWidget {
   ReusableTiles({@required this.tileColor, this.cardChild, this.onTapFunction});
 
   @override
+  _ReusableTilesState createState() => _ReusableTilesState();
+}
+
+class _ReusableTilesState extends State<ReusableTiles> {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTapFunction,
+      onTap: widget.onTapFunction,
       child: Container(
-        child: cardChild,
+        child: widget.cardChild,
         decoration: BoxDecoration(
-          color: tileColor,
+          color: widget.tileColor,
           borderRadius: BorderRadius.circular(10.0),
         ),
         margin: EdgeInsets.all(8.0),

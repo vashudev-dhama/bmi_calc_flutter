@@ -45,7 +45,7 @@ class _InputPageState extends State<InputPage> {
                     tileColor: userGender == Gender.male
                         ? kActiveCardColor
                         : kInactiveCardColor,
-                    cardChild: CardContent(
+                    cardChild: GenderCardContent(
                       icon: FontAwesomeIcons.mars,
                       textContent: 'MALE',
                     ),
@@ -62,7 +62,7 @@ class _InputPageState extends State<InputPage> {
                     tileColor: userGender == Gender.female
                         ? kActiveCardColor
                         : kInactiveCardColor,
-                    cardChild: CardContent(
+                    cardChild: GenderCardContent(
                       icon: FontAwesomeIcons.venus,
                       textContent: 'FEMALE',
                     ),
@@ -118,17 +118,31 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableTiles(
                     tileColor: kActiveCardColor,
+                    cardChild: NumericCardContent(
+                      labelText: 'WEIGHT',
+                      defaultValue: 60,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReusableTiles(
                     tileColor: kActiveCardColor,
+                    cardChild: NumericCardContent(
+                      labelText: 'AGE',
+                      defaultValue: 25,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
           Container(
+            child: Center(
+              child: Text(
+                'CALCULATE BMI',
+                style: TextStyle(fontSize: 30.0),
+              ),
+            ),
             margin: EdgeInsets.only(top: 10.0),
             color: kBottomContainerColor,
             height: 70.0,
