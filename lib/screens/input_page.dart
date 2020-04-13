@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'reusable_tiles.dart';
-import 'card_content.dart';
+import '../components/reusable_tiles.dart';
+import '../components/card_content.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'constants.dart';
+import '../constants.dart';
+import 'result_page.dart';
+import '../components/reusable_button.dart';
+import '../bmi_calculator_brain.dart';
 
 enum Gender {
   male,
@@ -17,8 +20,9 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   //to keep track of user's gender
   Gender userGender;
-  //user height
+  // Default user height and weight.
   int userHeight = 180;
+  int userWeight = 70;
 
   @override
   Widget build(BuildContext context) {
@@ -136,18 +140,22 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            child: Center(
-              child: Text(
-                'CALCULATE BMI',
-                style: TextStyle(fontSize: 30.0),
-              ),
-            ),
-            margin: EdgeInsets.only(top: 10.0),
-            color: kBottomContainerColor,
-            height: 70.0,
-            width: double.infinity,
-          ),
+          GestureDetectorBottomButton(
+              buttonLabelText: 'CALCULATE BMI',
+              onTap: () {
+                BmiCalculator calc =
+                    BmiCalculator(height: userHeight, weight: weightValue);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultPage(
+                      bmiResult: calc.calculateBMI(),
+                      resultText: calc.getResult(),
+                      resultDesc: calc.getResultDescription(),
+                    ),
+                  ),
+                );
+              }),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../constants.dart';
 
-class ReusableButton extends StatelessWidget {
+class ReusableIconButton extends StatelessWidget {
   /// What should button do on press?
   final Function onPressed;
 
@@ -20,7 +21,7 @@ class ReusableButton extends StatelessWidget {
   final double width;
   final double height;
 
-  ReusableButton(
+  ReusableIconButton(
       {@required this.icon,
       @required this.onPressed,
       this.shape = const CircleBorder(),
@@ -40,6 +41,35 @@ class ReusableButton extends StatelessWidget {
       constraints: BoxConstraints.tightFor(
         width: width,
         height: height,
+      ),
+    );
+  }
+}
+
+class GestureDetectorBottomButton extends StatelessWidget {
+  final String buttonLabelText;
+  final Function onTap;
+  GestureDetectorBottomButton({
+    @required this.buttonLabelText,
+    @required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        child: Center(
+          child: Text(
+            buttonLabelText,
+            style: kLargeButtonTextStyle,
+          ),
+        ),
+        margin: EdgeInsets.only(top: 10.0),
+        padding: EdgeInsets.only(bottom: 20.0),
+        color: kBottomContainerColor,
+        height: 70.0,
+        width: double.infinity,
       ),
     );
   }

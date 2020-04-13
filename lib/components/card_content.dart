@@ -1,7 +1,10 @@
-import 'package:bmi_calculator/reusable_button.dart';
+import 'package:bmi_calculator/components/reusable_button.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import '../constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+// To be used to track weight value across the classes
+int weightValue = 60;
 
 class GenderCardContent extends StatelessWidget {
   //card text
@@ -48,6 +51,11 @@ class NumericCardContent extends StatefulWidget {
 
 class _NumericCardContentState extends State<NumericCardContent> {
   int value;
+  void updateValue() {
+    if (widget.labelText == 'WEIGHT') {
+      weightValue = value;
+    }
+  }
 
   _NumericCardContentState({@required this.value});
 
@@ -69,23 +77,24 @@ class _NumericCardContentState extends State<NumericCardContent> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ReusableButton(
+            ReusableIconButton(
               icon: FontAwesomeIcons.minus,
               onPressed: () {
                 setState(() {
-                  print(value);
                   value--;
+                  updateValue();
                 });
               },
             ),
             SizedBox(
               width: 10.0,
             ),
-            ReusableButton(
+            ReusableIconButton(
               icon: FontAwesomeIcons.plus,
               onPressed: () {
                 setState(() {
                   value++;
+                  updateValue();
                 });
               },
             ),

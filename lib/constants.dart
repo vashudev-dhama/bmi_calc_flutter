@@ -30,3 +30,24 @@ const double maxHeight = 220.0;
 const kActiveSliderColor = kBottomContainerColor;
 //slider's inactive side color
 const kInActiveSliderColor = kInactiveCardColor;
+const kLargeButtonTextStyle = TextStyle(
+  fontSize: 25.0,
+  fontWeight: FontWeight.bold,
+);
+const kResultTitleTextStyle = TextStyle(
+  fontSize: 50.0,
+  fontWeight: FontWeight.bold,
+);
+const kBmiAlphabeticResultTextStyle = TextStyle(
+  color: Colors.greenAccent,
+  fontSize: 20.0,
+);
+const kBmiNumericResultTextStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 50.0,
+  fontWeight: FontWeight.bold,
+);
+const kBmiDescResultTextStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 20.0,
+);
